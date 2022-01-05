@@ -15,18 +15,51 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Karyawan {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
-  private String nama;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  private String alamat;
+    private String nama;
 
-  private String departemen;
+    private String alamat;
 
-  private Long thnKerja;
+    private String departemen;
 
-  private Long masaKerja;
+    private Long thnKerja;
+
+    private Long masaKerja;
+
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long Id) {
+        this.id = id;
+    }
+
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public Karyawan() {
+
+    }
+    
+    public Karyawan(String n, Long i){
+        nama = n;
+        id = i;
+    }
+    
+    @Override
+    public String toString(){
+        return "Karyawan [id="+id+", nama="+nama+", alamat="+alamat+", departemen="+departemen+", thnKerja="+thnKerja+", masaKerja="+masaKerja+"]";
+    }
+
 }

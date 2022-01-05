@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.itsmerifz.reactspringcrud.entity.Karyawan;
 import id.itsmerifz.reactspringcrud.repository.KaryawanRepository;
+import java.util.ArrayList;
+import java.util.Set;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin
 @RestController
@@ -27,8 +32,24 @@ public class KaryawanController {
   private KaryawanRepository kRepo;
 
   @GetMapping("/karyawan")
-  public List<Karyawan> getAllKaryawan() {
-    return kRepo.findAll();
+  public ResponseEntity<List<Karyawan>> getAllKaryawan(@RequestParam(required=false) String nama) {
+    try{
+        List<Karyawan> k = new ArrayList<Karyawan>();
+        
+        if(nama == null){
+            kRepo.findAll().forEach(k::add);
+        }else{
+            kRepo.findByNamaContaining(nama).forEach(k::add);
+        }
+        
+        if(k.isEmpty()){
+           return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<>(k, HttpStatus.OK);
+    }catch(Exception e){
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
   
   @GetMapping("/karyawan/{id}")
