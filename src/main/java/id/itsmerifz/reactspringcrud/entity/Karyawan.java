@@ -30,16 +30,6 @@ public class Karyawan {
 
     private Long masaKerja;
 
-    
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long Id) {
-        this.id = id;
-    }
-
-
     public String getNama() {
         return nama;
     }
@@ -52,14 +42,7 @@ public class Karyawan {
 
     }
     
-    public Karyawan(String n, Long i){
+    public Karyawan(String n){
         nama = n;
-        id = i;
     }
-    
-    @Override
-    public String toString(){
-        return "Karyawan [id="+id+", nama="+nama+", alamat="+alamat+", departemen="+departemen+", thnKerja="+thnKerja+", masaKerja="+masaKerja+"]";
-    }
-
 }
